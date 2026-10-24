@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — Butter &amp; Bloom Artisan Bakery</title>
+  <meta name="description" content="The story of Butter & Bloom: a home kitchen, real butter, slow fermentation and small batches. Meet the neighborhood artisan bakery.">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <meta property="og:title" content="About Us — Butter & Bloom Artisan Bakery">
+  <meta property="og:description" content="A home kitchen, real butter and a stubborn belief in doing things slowly.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="./about-storefront.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Seasonal announcement (content managed from the admin panel) -->
+  <div id="announcement-bar" class="announcement-bar" hidden></div>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="header-side">
+        <button id="nav-toggle" class="icon-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+        </button>
+      </div>
+
+      <a class="logo" href="index.html" aria-label="Butter and Bloom — home">
+        <span class="logo-text">
+          <span class="logo-script">Butter &amp; Bloom</span>
+          <span class="logo-sub">Artisan Bakery</span>
+        </span>
+        <svg class="logo-mark" viewBox="0 0 64 40" width="30" height="19" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 30 C6 16 18 7 32 7 C46 7 58 16 58 30 C58 34 53.5 35.5 50.5 32.5 C46 27.5 40 25 32 25 C24 25 18 27.5 13.5 32.5 C10.5 35.5 6 34 6 30 Z"/><path d="M22 10.5 L26 24" opacity=".55"/><path d="M32 8 L32 24" opacity=".55"/><path d="M42 10.5 L38 24" opacity=".55"/></svg>
+      </a>
+
+      <div class="header-side header-side-right">
+        <button id="search-toggle" class="icon-btn" aria-label="Search" aria-expanded="false" aria-controls="search-overlay">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+        </button>
+        <a href="wishlist.html" class="icon-btn" aria-label="Wishlist">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5 C7 16.5 3.5 13.3 3.5 9.6 C3.5 7 5.6 5 8.1 5 C9.7 5 11.2 5.8 12 7.1 C12.8 5.8 14.3 5 15.9 5 C18.4 5 20.5 7 20.5 9.6 C20.5 13.3 17 16.5 12 20.5 Z"/></svg>
+          <span id="wishlist-badge" class="badge-count" hidden>0</span>
+        </a>
+        <a href="cart.html" class="icon-btn" aria-label="Shopping cart">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7 H20 L18.5 17 A2 2 0 0 1 16.5 18.6 H7.5 A2 2 0 0 1 5.5 17 Z"/><path d="M8.5 10 V6.5 A3.5 3.5 0 0 1 15.5 6.5 V10"/></svg>
+          <span id="cart-badge" class="badge-count" hidden>0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-in navigation drawer -->
+  <div id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <span class="logo-script">Butter &amp; Bloom</span>
+      <button id="drawer-close" class="icon-btn" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+      </button>
+    </div>
+    <nav class="drawer-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop All</a>
+      <a href="collections.html">Collections</a>
+      <a href="custom-cake.html">Custom Cakes</a>
+      <a href="reservations.html">Reservations</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="drawer-foot">
+      <p class="drawer-hours" id="drawer-hours"></p>
+      <div class="social-links" id="drawer-socials"></div>
+    </div>
+  </div>
+  <div id="drawer-backdrop" class="drawer-backdrop" hidden></div>
+
+  <!-- Search overlay -->
+  <div id="search-overlay" class="search-overlay" aria-hidden="true">
+    <div class="container search-panel">
+      <form id="search-form" action="shop.html" method="get" role="search">
+        <input type="search" id="search-input" name="search" placeholder="Search croissants, cakes, macarons..." aria-label="Search products" autocomplete="off">
+        <button type="submit" class="btn btn-primary">Search</button>
+        <button type="button" id="search-close" class="icon-btn" aria-label="Close search">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+        </button>
+      </form>
+      <p class="search-hint">Try "croissant", "macarons" or "celebration cake"</p>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <!-- ================= PAGE HEAD ================= -->
+    <section class="page-head">
+      <div class="container">
+        <span class="eyebrow">Since day one</span>
+        <h1 class="section-title">Our Story</h1>
+        <p>A home kitchen, a stubborn belief in real butter, and a neighborhood that kept coming back — this is how Butter &amp; Bloom grew from a weekend hobby into your artisan bakery.</p>
+      </div>
+    </section>
+
+    <!-- ================= STORY + STATS ================= -->
+    <section class="section" aria-labelledby="story-title">
+      <div class="container">
+        <div class="story-split">
+          <div class="story-media">
+            <img src="./about-storefront.jpg" alt="The Butter & Bloom storefront with warm window light and a chalkboard menu beside the door" loading="lazy">
+          </div>
+          <div class="story-copy">
+            <span class="eyebrow">How it started</span>
+            <h2 class="section-title" id="story-title">From a home kitchen,<br>one loaf at a time</h2>
+            <p>Butter &amp; Bloom began in a home kitchen barely wide enough for two sheet pans. Our founder baked on weekends for neighbors, selling loaves from a wagon window and writing every order on the back of a receipt. The sourdough sold out by ten; the birthday cakes by noon.</p>
+            <p>When the queue outgrew the doorstep, we found a little storefront with good light and better ovens. We kept the recipes exactly as they were — folded, laminated and piped by hand, with real butter and patience. Nothing about that first kitchen has changed except the size of the mixing bowls.</p>
+            <p>Today we are a neighborhood favorite: the stop before Sunday brunch, the counter where your usual is already boxed, and the bakery half the town trusts with its wedding cakes. We still bake in small batches through the day, so whatever you take home was in the oven that morning.</p>
+
+            <!-- Sample numbers — each labeled as such, per the demo-data honesty rule -->
+            <div class="stats-row">
+              <div class="stat-card">
+                <div class="stat-value">10+</div>
+                <div class="stat-label">Years of baking — sample</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value">30+</div>
+                <div class="stat-label">Signature recipes — sample</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">Real butter — sample</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= THE CRAFT ================= -->
+    <section class="section-tight" aria-labelledby="craft-title">
+      <div class="container">
+        <div class="section-head center">
+          <span class="eyebrow">Our craft</span>
+          <h2 class="section-title" id="craft-title">What goes into every bake</h2>
+          <p class="section-sub">Three habits we refuse to give up</p>
+        </div>
+
+        <!-- .visit-card styling; the rounded image treatment is inline because
+             the foundation stylesheet does not ship a .visit-card img rule -->
+        <div class="grid-3" style="margin-top: 30px;">
+          <div class="visit-card">
+            <img src="./gallery-baker-hands.jpg" alt="Baker hands kneading soft dough on a flour-dusted wooden surface" loading="lazy" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:16px; margin-bottom:16px;">
+            <h3>Slow fermentation</h3>
+            <p>Our doughs rest overnight, cold and unhurried. It takes longer, but the flavor is deeper and every crumb is easier to love.</p>
+          </div>
+          <div class="visit-card">
+            <img src="./gallery-dough-prep.jpg" alt="Laminated croissant dough being rolled out with a wooden rolling pin" loading="lazy" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:16px; margin-bottom:16px;">
+            <h3>Hand-laminated</h3>
+            <p>Croissants are rolled and folded by hand, layer by buttery layer. No machines pressed flat, no shortcuts taken — you can taste the difference.</p>
+          </div>
+          <div class="visit-card">
+            <img src="./gallery-cake-decorating.jpg" alt="Close up of pastel buttercream flowers being piped onto a cake" loading="lazy" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:16px; margin-bottom:16px;">
+            <h3>Decorated by hand</h3>
+            <p>Buttercream petals are piped one flower at a time. Even our simplest celebration cake carries hours of quiet, careful work.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= INGREDIENTS ================= -->
+    <section class="section" aria-labelledby="ingredients-title">
+      <div class="container">
+        <!-- Reversed split: copy first in the DOM so the image lands on the right -->
+        <div class="story-split">
+          <div class="story-copy">
+            <span class="eyebrow">Our ingredients</span>
+            <h2 class="section-title" id="ingredients-title">Only the good stuff</h2>
+            <p>A great bake needs so few things that every one of them matters. We read the labels so you never have to.</p>
+            <ul class="quality-list">
+              <li>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5 L9.5 17.5 L19.5 6.5"/></svg>
+                <span>Real butter in every bake — never margarine, never "spread"</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5 L9.5 17.5 L19.5 6.5"/></svg>
+                <span>Local dairy and free-range eggs from farms we can name</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5 L9.5 17.5 L19.5 6.5"/></svg>
+                <span>Fresh fruit in season — no flavored syrups pretending to be berries</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5 L9.5 17.5 L19.5 6.5"/></svg>
+                <span>Small batches baked through the day, so nothing sits overnight</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5 L9.5 17.5 L19.5 6.5"/></svg>
+                <span>No premixes, no shortcuts and no artificial colors — ever</span>
+              </li>
+            </ul>
+          </div>
+          <div class="story-media">
+            <img src="./about-ingredients.jpg" alt="Premium baking ingredients: butter, flour, eggs, vanilla beans and fresh berries on marble" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CTA BAND ================= -->
+    <section class="section-tight" aria-labelledby="cta-title" style="padding-bottom: clamp(40px, 7vw, 84px);">
+      <div class="container">
+        <div class="promo-panel">
+          <div class="promo-media">
+            <img src="./gallery-display-counter.jpg" alt="Bakery display counter filled with colorful pastries and cakes" loading="lazy">
+          </div>
+          <div class="promo-copy">
+            <span class="eyebrow">Come and see</span>
+            <p class="script-accent" id="cta-title">Taste the difference today</p>
+            <p>The display case fills up all morning and the kettle is always on. Order ahead for pickup, or dream something up with our custom cake team.</p>
+            <div class="promo-actions">
+              <a class="btn btn-primary" href="shop.html">Browse the shop</a>
+              <a class="btn btn-light" href="custom-cake.html">Design a custom cake</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <span class="logo-script">Butter &amp; Bloom</span>
+        <p>Handcrafted pastries, cakes and breads, baked fresh every morning with real butter, patience and love.</p>
+        <div class="social-links" id="footer-socials"></div>
+      </div>
+      <div class="footer-col">
+        <h3>Explore</h3>
+        <a href="shop.html">Shop All</a>
+        <a href="collections.html">Seasonal Collections</a>
+        <a href="custom-cake.html">Custom Cakes</a>
+        <a href="reservations.html">Reservations</a>
+        <a href="about.html">Our Story</a>
+      </div>
+      <div class="footer-col">
+        <h3>Opening Hours</h3>
+        <div id="footer-hours" class="footer-hours"></div>
+      </div>
+      <div class="footer-col">
+        <h3>Visit Us</h3>
+        <div id="footer-contact"></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>&copy; <span id="footer-year">2025</span> Butter &amp; Bloom. Demo bakery website — sample content for portfolio purposes.</p>
+        <a href="admin.html">Bakery Admin</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Global chrome only — this page has no page script -->
+  <script src="./supabase-js.js"></script>
+  <script src="./supabase.js"></script>
+  <script src="./main.js"></script>
+</body>
+</html>

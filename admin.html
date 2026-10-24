@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bakery Admin — Butter &amp; Bloom</title>
+  <meta name="description" content="Administration dashboard for the Butter & Bloom bakery website — products, orders, cake requests, reservations, messages and settings.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+
+  <style>
+  /* ==========================================================================
+     admin.html page-scoped additions
+     Only tiny gaps that the shared design system (style.css) does not cover.
+     Everything else reuses .admin-*, .modal-*, .admin-table, .image-* etc.
+     ========================================================================== */
+
+  /* Let the shell grow so the minimal footer sits at the bottom */
+  #admin-shell.is-visible { flex: 1 0 auto; }
+
+  /* Section headings inside the large editor / settings forms */
+  .admin-form-section { border-top: 1px solid var(--border); margin-top: 24px; padding-top: 18px; }
+  .admin-form-section:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+  .admin-form-section > h4 {
+    margin: 0 0 14px;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--caramel);
+  }
+  .admin-form-section .form-field:last-child { margin-bottom: 0; }
+
+  /* Image tiles: text labels ("Cover", "Replace", "Remove") need more room
+     than the shared 34px square allows — widen without changing style.css */
+  .image-tile .tile-actions button,
+  .image-tile .tile-actions label { width: auto; min-width: 34px; padding: 0 7px; }
+  .image-tile input[type="file"] { display: none; }
+
+  /* Placeholder tile shown while a file is uploading */
+  .tile-uploading {
+    border: 2px dashed var(--rose);
+    border-radius: var(--radius-md);
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    color: var(--caramel-dark);
+    font-weight: 700;
+    font-size: 0.8rem;
+    background: rgba(247, 230, 224, 0.4);
+  }
+
+  /* Multi-select chips (seasonal collections in the product editor) */
+  .chip-select { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  /* Dashboard skeleton + quick action row */
+  .skeleton-stat { height: 92px; border-radius: var(--radius-lg); }
+  .skeleton-line-row { height: 52px; border-radius: var(--radius-md); margin-bottom: 10px; }
+  .dashboard-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 26px; }
+
+  /* Skeleton building blocks used inside tables / cards / status panels */
+  .skeleton-cell { height: 14px; border-radius: 6px; }
+  .skeleton-cell.tall { height: 22px; }
+  .skeleton-cell.short { width: 55%; }
+  .visually-hidden {
+    position: absolute;
+    width: 1px; height: 1px;
+    margin: -1px; padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Empty-image placeholder in tables (span needs a display to size) */
+  .thumb-cell.thumb-empty { display: block; }
+
+  /* Action row inside cake request cards (.row-actions is table-scoped) */
+  .request-card .request-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; padding-top: 8px; }
+
+  /* Category/collection editor image buttons */
+  .tax-image-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .tax-image-actions input[type="file"] { display: none; }
+
+  /* Settings form footer (inline error + save button) */
+  .settings-foot { display: flex; justify-content: flex-end; align-items: center; gap: 14px; margin-top: 24px; flex-wrap: wrap; }
+  .settings-foot .field-error { margin: 0; }
+
+  /* Unread message marker */
+  .unread-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--caramel);
+    margin-left: 7px;
+    vertical-align: middle;
+  }
+
+  /* Small print under modal rows (e.g. the WhatsApp disclaimer) */
+  .modal-subnote { font-size: 0.78rem; color: var(--muted); margin: 6px 0 0; }
+
+  /* Reference / hero image previews inside modals and settings */
+  .admin-img-preview { max-width: 180px; border-radius: var(--radius-md); border: 1px solid var(--border); margin-top: 10px; }
+
+  /* Demo result report block */
+  .demo-result {
+    margin-top: 14px;
+    font-size: 0.88rem;
+    color: var(--ink);
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    white-space: pre-line;
+  }
+
+  /* WhatsApp convenience button (soft green — matches --success token) */
+  .btn-whatsapp { background: var(--success); color: var(--white); }
+  .btn-whatsapp:hover { background: #5d7c4d; color: var(--white); }
+
+  /* Order view modal: inline status field (pushed left in the modal foot) */
+  .order-status-field { display: flex; align-items: center; gap: 10px; margin-right: auto; }
+  .order-status-field label { font-size: 0.85rem; font-weight: 700; color: var(--cocoa); }
+
+  /* Totals block under the order items table */
+  .order-totals { margin-top: 18px; }
+
+  /* Status button rows inside review modals */
+  .status-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  /* Full contact message body inside the message modal */
+  .message-body { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px 16px; white-space: pre-wrap; }
+  </style>
+</head>
+<body class="admin-body">
+
+  <!-- ============================== LOGIN ============================== -->
+  <section id="admin-login" class="admin-login-wrap">
+    <div class="admin-login-card">
+      <span class="logo-script">Butter &amp; Bloom</span>
+      <span class="logo-sub">Bakery Admin</span>
+
+      <form id="login-form" novalidate>
+        <div class="form-field">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" name="email" autocomplete="email" placeholder="you@bakery.com">
+        </div>
+        <div class="form-field">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" name="password" autocomplete="current-password" placeholder="Your password">
+        </div>
+        <button type="submit" id="login-submit" class="btn btn-primary btn-block">Sign In</button>
+      </form>
+
+      <!-- Inline error / setup notice (hidden until needed) -->
+      <p id="login-error" class="field-error" role="alert" hidden></p>
+
+      <p class="admin-note">Access is limited to bakery administrators created in Supabase Auth — there is no public sign-up.</p>
+      <a class="text-btn" href="index.html">Back to website</a>
+    </div>
+  </section>
+
+  <!-- ============================== SHELL ============================== -->
+  <section id="admin-shell" class="admin-shell">
+
+    <!-- Top bar -->
+    <div class="admin-topbar">
+      <div class="container admin-topbar-inner">
+        <span class="logo-script">Butter &amp; Bloom</span>
+        <span class="logo-sub">Bakery Admin</span>
+        <span id="admin-user" class="admin-user"></span>
+        <a href="index.html" class="btn btn-small btn-blush">View site</a>
+        <button type="button" id="logout-btn" class="btn btn-small btn-outline">Log out</button>
+      </div>
+    </div>
+
+    <!-- Section tabs (deep-linkable via #hash) -->
+    <div class="admin-tabs" role="tablist" aria-label="Admin sections">
+      <button type="button" class="admin-tab is-active" role="tab" aria-selected="true"    data-tab="dashboard"    id="tab-dashboard"    aria-controls="panel-dashboard">Dashboard</button>
+      <button type="button" class="admin-tab" role="tab" aria-selected="false"             data-tab="products"     id="tab-products"     aria-controls="panel-products">Products</button>
+      <button type="button" class="admin-tab" role="tab" aria-selected="false"             data-tab="orders"       id="tab-orders"       aria-controls="panel-orders">Orders</button>
+      <button type="button" class="admin-tab" role="tab" aria-selected="false"             data-tab="cakes"        id="tab-cakes"        aria-controls="panel-cakes">Cake Requests</button>
+      <button type="button" class="admin-tab" role="tab" aria-selected="false"             data-tab="reservations" id="tab-reservations" aria-controls="panel-reservations">Reservations</button>
+      <button type="button" class="admin-tab" role="tab" aria-selected="false"             data-tab="messages"     id="tab-messages"     aria-controls="panel-messages">Messages</button>
+      <button type="button" class="admin-tab" role="tab" aria-selected="false"             data-tab="categories"   id="tab-categories"   aria-controls="panel-categories">Categories</button>
+      <button type="button" class="admin-tab" role="tab" aria-selected="false"             data-tab="collections"  id="tab-collections"  aria-controls="panel-collections">Collections</button>
+      <button type="button" class="admin-tab" role="tab" aria-selected="false"             data-tab="settings"     id="tab-settings"     aria-controls="panel-settings">Settings</button>
+      <button type="button" class="admin-tab" role="tab" aria-selected="false"             data-tab="demo"         id="tab-demo"         aria-controls="panel-demo">Demo Data</button>
+    </div>
+
+    <div class="admin-content">
+      <div class="container">
+
+        <!-- DASHBOARD (filled by admin.js) -->
+        <section class="admin-panel is-active" id="panel-dashboard" role="tabpanel" aria-labelledby="tab-dashboard">
+          <div class="admin-panel-head"><h2>Dashboard</h2></div>
+          <div id="dashboard-body"></div>
+        </section>
+
+        <!-- PRODUCTS (filled by admin.js) -->
+        <section class="admin-panel" id="panel-products" role="tabpanel" aria-labelledby="tab-products">
+          <div class="admin-panel-head">
+            <h2>Products</h2>
+            <button type="button" id="add-product-btn" class="btn btn-primary">+ Add Product</button>
+          </div>
+          <div class="admin-toolbar">
+            <input type="search" id="product-search" placeholder="Search by name..." aria-label="Search products by name">
+            <select id="product-category-filter" aria-label="Filter products by category">
+              <option value="all">All categories</option>
+            </select>
+            <select id="product-status-filter" aria-label="Filter products by status">
+              <option value="all">All statuses</option>
+              <option value="published">Published</option>
+              <option value="draft">Draft</option>
+              <option value="hidden">Hidden</option>
+              <option value="demo">Demo</option>
+            </select>
+          </div>
+          <div id="products-body"></div>
+        </section>
+
+        <!-- ORDERS (filled by admin-operations.js) -->
+        <section class="admin-panel" id="panel-orders" role="tabpanel" aria-labelledby="tab-orders">
+          <div class="admin-panel-head"><h2>Orders</h2></div>
+          <div class="admin-toolbar">
+            <select id="order-status-filter" aria-label="Filter orders by status">
+              <option value="all">All statuses</option>
+              <option value="pending">Pending</option>
+              <option value="confirmed">Confirmed</option>
+              <option value="preparing">Preparing</option>
+              <option value="ready">Ready</option>
+              <option value="completed">Completed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+          <div id="orders-body"></div>
+        </section>
+
+        <!-- CAKE REQUESTS (filled by admin-operations.js) -->
+        <section class="admin-panel" id="panel-cakes" role="tabpanel" aria-labelledby="tab-cakes">
+          <div class="admin-panel-head"><h2>Cake Requests</h2></div>
+          <div class="admin-toolbar">
+            <select id="cake-status-filter" aria-label="Filter cake requests by status">
+              <option value="all">All statuses</option>
+              <option value="pending">Pending</option>
+              <option value="accepted">Accepted</option>
+              <option value="rejected">Rejected</option>
+              <option value="completed">Completed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+          <div id="cakes-body"></div>
+        </section>
+
+        <!-- RESERVATIONS (filled by admin-operations.js) -->
+        <section class="admin-panel" id="panel-reservations" role="tabpanel" aria-labelledby="tab-reservations">
+          <div class="admin-panel-head"><h2>Reservations</h2></div>
+          <div id="reservations-body"></div>
+        </section>
+
+        <!-- MESSAGES (filled by admin-operations.js) -->
+        <section class="admin-panel" id="panel-messages" role="tabpanel" aria-labelledby="tab-messages">
+          <div class="admin-panel-head"><h2>Messages</h2></div>
+          <div id="messages-body"></div>
+        </section>
+
+        <!-- CATEGORIES (filled by admin.js) -->
+        <section class="admin-panel" id="panel-categories" role="tabpanel" aria-labelledby="tab-categories">
+          <div class="admin-panel-head">
+            <h2>Categories</h2>
+            <button type="button" id="add-category-btn" class="btn btn-primary">+ Add Category</button>
+          </div>
+          <div id="categories-body"></div>
+        </section>
+
+        <!-- COLLECTIONS (filled by admin.js) -->
+        <section class="admin-panel" id="panel-collections" role="tabpanel" aria-labelledby="tab-collections">
+          <div class="admin-panel-head">
+            <h2>Collections</h2>
+            <button type="button" id="add-collection-btn" class="btn btn-primary">+ Add Collection</button>
+          </div>
+          <div id="collections-body"></div>
+        </section>
+
+        <!-- SETTINGS (filled by admin-operations.js) -->
+        <section class="admin-panel" id="panel-settings" role="tabpanel" aria-labelledby="tab-settings">
+          <div class="admin-panel-head"><h2>Settings</h2></div>
+          <div id="settings-body"></div>
+        </section>
+
+        <!-- DEMO DATA (filled by admin-operations.js) -->
+        <section class="admin-panel" id="panel-demo" role="tabpanel" aria-labelledby="tab-demo">
+          <div class="admin-panel-head"><h2>Demo Data</h2></div>
+          <div class="demo-status-card">
+            <h3>Demo catalog status</h3>
+            <div id="demo-status-area"></div>
+            <div class="demo-actions">
+              <button type="button" id="load-demo-btn" class="btn btn-primary">Load Demo Data</button>
+              <button type="button" id="remove-demo-btn" class="btn btn-outline">Remove Demo Data</button>
+              <button type="button" id="replace-demo-btn" class="btn btn-blush">Replace Demo Data</button>
+            </div>
+          </div>
+          <p class="demo-warning">Demo records are tagged is_demo + demo_batch_id 'bb-demo-v1'. Cleanup only ever removes tagged rows — real products, orders and customer requests are never deleted. Bundled demo photos may stay in the repository; they disappear from the site when their products are removed.</p>
+        </section>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Minimal footer (the admin panel does not use the public site footer) -->
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>&copy; <span id="footer-year">2025</span> Butter &amp; Bloom — bakery administration.</p>
+        <a href="index.html">Back to website</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast container required by BB.toast (main.js) -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Script order matters: supabase-js -> data layer -> shared UI -> admin core -> admin operations -->
+  <script src="./supabase-js.js"></script>
+  <script src="./supabase.js"></script>
+  <script src="./main.js"></script>
+  <script src="./admin.js"></script>
+  <script src="./admin-operations.js"></script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — Butter &amp; Bloom Artisan Bakery</title>
+  <meta name="description" content="Place your Butter & Bloom order for pickup or local delivery. We confirm every order by phone — no payment is taken online.">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    /* ---------------------------------------------------------------------
+       Page-scoped helpers for the checkout form and the order review list.
+       They live here (not in style.css) because this task may only touch its
+       own four files — they are flagged as a "Request to Task 3" in the
+       worklog so they can be promoted into the shared stylesheet later.
+       --------------------------------------------------------------------- */
+    [hidden] { display: none !important; }
+
+    /* Group label + required marker inside the checkout form */
+    .form-group-label { display: block; font-weight: 700; font-size: 0.9rem; color: var(--cocoa); margin-bottom: 7px; }
+    .req-marker { color: var(--danger); }
+    .form-req-note { font-size: 0.82rem; color: var(--muted); margin: -4px 0 18px; }
+    .checkout-form h3 { margin: 26px 0 14px; }
+    .checkout-form h3:first-of-type { margin-top: 0; }
+
+    /* Compact order review list inside the summary card */
+    .order-review {
+      list-style: none;
+      margin: 0 0 14px;
+      padding: 0 0 12px;
+      border-bottom: 1px dashed var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .order-review .review-line { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .order-review .review-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .order-review .review-name { font-weight: 600; color: var(--cocoa); }
+    .order-review .review-options { font-size: 0.8rem; color: var(--muted); }
+    .order-review .review-total { font-weight: 700; color: var(--cocoa-dark); white-space: nowrap; }
+
+    /* Inline error slot + success panel spacing */
+    .checkout-error-slot { margin-bottom: 20px; }
+    .checkout-success .success-details { margin-top: 2px; }
+    .checkout-success .success-disclaimer { font-size: 0.88rem; color: var(--muted); }
+    .checkout-success .success-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Seasonal announcement (content managed from the admin panel) -->
+  <div id="announcement-bar" class="announcement-bar" hidden></div>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="header-side">
+        <button id="nav-toggle" class="icon-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+        </button>
+      </div>
+
+      <a class="logo" href="index.html" aria-label="Butter and Bloom — home">
+        <span class="logo-text">
+          <span class="logo-script">Butter &amp; Bloom</span>
+          <span class="logo-sub">Artisan Bakery</span>
+        </span>
+        <svg class="logo-mark" viewBox="0 0 64 40" width="30" height="19" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 30 C6 16 18 7 32 7 C46 7 58 16 58 30 C58 34 53.5 35.5 50.5 32.5 C46 27.5 40 25 32 25 C24 25 18 27.5 13.5 32.5 C10.5 35.5 6 34 6 30 Z"/><path d="M22 10.5 L26 24" opacity=".55"/><path d="M32 8 L32 24" opacity=".55"/><path d="M42 10.5 L38 24" opacity=".55"/></svg>
+      </a>
+
+      <div class="header-side header-side-right">
+        <button id="search-toggle" class="icon-btn" aria-label="Search" aria-expanded="false" aria-controls="search-overlay">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+        </button>
+        <a href="wishlist.html" class="icon-btn" aria-label="Wishlist">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5 C7 16.5 3.5 13.3 3.5 9.6 C3.5 7 5.6 5 8.1 5 C9.7 5 11.2 5.8 12 7.1 C12.8 5.8 14.3 5 15.9 5 C18.4 5 20.5 7 20.5 9.6 C20.5 13.3 17 16.5 12 20.5 Z"/></svg>
+          <span id="wishlist-badge" class="badge-count" hidden>0</span>
+        </a>
+        <a href="cart.html" class="icon-btn" aria-label="Shopping cart">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7 H20 L18.5 17 A2 2 0 0 1 16.5 18.6 H7.5 A2 2 0 0 1 5.5 17 Z"/><path d="M8.5 10 V6.5 A3.5 3.5 0 0 1 15.5 6.5 V10"/></svg>
+          <span id="cart-badge" class="badge-count" hidden>0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-in navigation drawer -->
+  <div id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <span class="logo-script">Butter &amp; Bloom</span>
+      <button id="drawer-close" class="icon-btn" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+      </button>
+    </div>
+    <nav class="drawer-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop All</a>
+      <a href="collections.html">Collections</a>
+      <a href="custom-cake.html">Custom Cakes</a>
+      <a href="reservations.html">Reservations</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="drawer-foot">
+      <p class="drawer-hours" id="drawer-hours"></p>
+      <div class="social-links" id="drawer-socials"></div>
+    </div>
+  </div>
+  <div id="drawer-backdrop" class="drawer-backdrop" hidden></div>
+
+  <!-- Search overlay -->
+  <div id="search-overlay" class="search-overlay" aria-hidden="true">
+    <div class="container search-panel">
+      <form id="search-form" action="shop.html" method="get" role="search">
+        <input type="search" id="search-input" name="search" placeholder="Search croissants, cakes, macarons..." aria-label="Search products" autocomplete="off">
+        <button type="submit" class="btn btn-primary">Search</button>
+        <button type="button" id="search-close" class="icon-btn" aria-label="Close search">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+        </button>
+      </form>
+      <p class="search-hint">Try "croissant", "macarons" or "celebration cake"</p>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <!-- ================= PAGE HEAD ================= -->
+    <section class="page-head">
+      <div class="container">
+        <h1 class="section-title">Checkout</h1>
+        <p>Place your order — we confirm every order by phone before baking.</p>
+      </div>
+    </section>
+
+    <!-- ================= CHECKOUT ================= -->
+    <section class="section" aria-label="Checkout">
+      <div class="container">
+        <div class="cart-layout" id="checkout-layout">
+
+          <!-- LEFT: order form -->
+          <div class="form-panel" id="checkout-panel">
+            <!-- Server/storage errors are rendered here by checkout.js -->
+            <div id="checkout-error" class="checkout-error-slot" hidden></div>
+
+            <!-- novalidate: validation is handled in checkout.js so every
+                 message can use the shared .field-error styling -->
+            <form id="checkout-form" class="checkout-form" novalidate>
+              <h3>Your details</h3>
+              <p class="form-req-note">Fields marked <span class="req-marker" aria-hidden="true">*</span> are required.</p>
+
+              <div class="form-field">
+                <label for="cust-name">Full name <span class="req-marker" aria-hidden="true">*</span></label>
+                <input type="text" id="cust-name" name="customer_name" autocomplete="name" required>
+                <p class="field-error" id="cust-name-error">Please enter your full name.</p>
+              </div>
+
+              <div class="form-field">
+                <label for="cust-phone">Phone <span class="req-marker" aria-hidden="true">*</span></label>
+                <input type="tel" id="cust-phone" name="phone" autocomplete="tel" required>
+                <p class="field-hint">We confirm every order by phone.</p>
+                <p class="field-error" id="cust-phone-error">Please enter a phone number with at least 6 digits.</p>
+              </div>
+
+              <div class="form-field">
+                <label for="cust-email">Email <span class="optional">(optional)</span></label>
+                <input type="email" id="cust-email" name="email" autocomplete="email">
+                <p class="field-error" id="cust-email-error">That email address does not look right.</p>
+              </div>
+
+              <h3>Pickup or delivery</h3>
+              <div class="form-field" role="radiogroup" aria-labelledby="fulfillment-label">
+                <span class="form-group-label" id="fulfillment-label">How would you like your order? <span class="req-marker" aria-hidden="true">*</span></span>
+                <div class="radio-cards">
+                  <label class="radio-card" id="fulfillment-card-pickup" for="fulfillment-pickup">
+                    <input type="radio" name="fulfillment" id="fulfillment-pickup" value="pickup">
+                    <span class="radio-title">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7 H20 L18.5 17 A2 2 0 0 1 16.5 18.6 H7.5 A2 2 0 0 1 5.5 17 Z"/><path d="M8.5 10 V6.5 A3.5 3.5 0 0 1 15.5 6.5 V10"/></svg>
+                      Pickup at the bakery
+                    </span>
+                    <span class="radio-desc">Ready for collection at our counter.</span>
+                  </label>
+                  <label class="radio-card" id="fulfillment-card-delivery" for="fulfillment-delivery">
+                    <input type="radio" name="fulfillment" id="fulfillment-delivery" value="delivery">
+                    <span class="radio-title">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7 H13 V16 H3 Z"/><path d="M13 10 H17.5 L20.5 13 V16 H13"/><circle cx="7" cy="18" r="1.8"/><circle cx="16.5" cy="18" r="1.8"/></svg>
+                      Local delivery
+                    </span>
+                    <span class="radio-desc">We bring your order to your address — fee shown in the summary.</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Only visible (and required) while "Local delivery" is selected -->
+              <div id="delivery-fields" hidden>
+                <div class="form-field">
+                  <label for="cust-address">Delivery address <span class="req-marker" aria-hidden="true">*</span></label>
+                  <textarea id="cust-address" name="delivery_address" rows="3" placeholder="Street and number, apartment, area..." required></textarea>
+                  <p class="field-error" id="cust-address-error">Please enter the address we should deliver to.</p>
+                </div>
+              </div>
+
+              <h3>When would you like it?</h3>
+              <div class="form-grid">
+                <div class="form-field">
+                  <label for="req-date">Requested date <span class="req-marker" aria-hidden="true">*</span></label>
+                  <!-- "min" is set to today by checkout.js -->
+                  <input type="date" id="req-date" name="requested_date" required>
+                  <p class="field-error" id="req-date-error">Please choose a date from today onwards.</p>
+                </div>
+                <div class="form-field">
+                  <label for="req-time">Preferred time <span class="optional">(optional)</span></label>
+                  <!-- Options (Flexible + hourly slots 09:00-18:00) filled by checkout.js -->
+                  <select id="req-time" name="requested_time"></select>
+                </div>
+              </div>
+
+              <h3>Anything else?</h3>
+              <div class="form-field">
+                <label for="cust-notes">Notes <span class="optional">(optional)</span></label>
+                <textarea id="cust-notes" name="notes" rows="3" maxlength="500" placeholder="Allergies, gift message, how to find your door..."></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block" id="place-order-btn">Place Order</button>
+            </form>
+          </div>
+
+          <!-- RIGHT: order review + totals -->
+          <aside class="summary-card" id="checkout-summary" aria-label="Order review and totals">
+            <h3>Order Review</h3>
+            <!-- One compact line per cart item, rendered by checkout.js -->
+            <ul class="order-review" id="order-review"></ul>
+
+            <div id="summary-rows">
+              <div class="summary-row">
+                <span>Subtotal</span>
+                <strong id="summary-subtotal"></strong>
+              </div>
+              <div class="summary-row">
+                <span id="summary-fee-label">Delivery fee</span>
+                <strong id="summary-fee"></strong>
+              </div>
+              <div class="summary-row total">
+                <span>Total</span>
+                <strong id="summary-total"></strong>
+              </div>
+            </div>
+
+            <!-- Red min-order warning (checkout.js toggles .is-visible) -->
+            <p class="field-error" id="min-order-warning" role="alert"></p>
+
+            <p class="summary-note">No payment is taken online — we arrange payment when we confirm your order by phone.</p>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <span class="logo-script">Butter &amp; Bloom</span>
+        <p>Handcrafted pastries, cakes and breads, baked fresh every morning with real butter, patience and love.</p>
+        <div class="social-links" id="footer-socials"></div>
+      </div>
+      <div class="footer-col">
+        <h3>Explore</h3>
+        <a href="shop.html">Shop All</a>
+        <a href="collections.html">Seasonal Collections</a>
+        <a href="custom-cake.html">Custom Cakes</a>
+        <a href="reservations.html">Reservations</a>
+        <a href="about.html">Our Story</a>
+      </div>
+      <div class="footer-col">
+        <h3>Opening Hours</h3>
+        <div id="footer-hours" class="footer-hours"></div>
+      </div>
+      <div class="footer-col">
+        <h3>Visit Us</h3>
+        <div id="footer-contact"></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>&copy; <span id="footer-year">2025</span> Butter &amp; Bloom. Demo bakery website — sample content for portfolio purposes.</p>
+        <a href="admin.html">Bakery Admin</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <script src="./supabase-js.js"></script>
+  <script src="./supabase.js"></script>
+  <script src="./main.js"></script>
+  <script src="./checkout.js"></script>
+</body>
+</html>

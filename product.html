@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product — Butter &amp; Bloom Artisan Bakery</title>
+  <meta name="description" content="Handcrafted bakery treat from Butter & Bloom — choose your options and add it to your order. Baked fresh every morning with real butter.">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+
+  <!--
+    Page-specific tweaks (product page only): the live line total under the
+    buy row and the "*Required" marker inside option labels are unique to
+    this page, so their rules live here instead of the shared stylesheet.
+  -->
+  <style>
+    .line-total { font-weight: 700; color: var(--cocoa); margin: 0 0 20px; font-size: 1rem; }
+    .option-required { color: var(--muted); font-weight: 500; font-size: 0.78rem; margin-left: 6px; }
+    .product-info .card-category { display: inline-block; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Seasonal announcement (content managed from the admin panel) -->
+  <div id="announcement-bar" class="announcement-bar" hidden></div>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="header-side">
+        <button id="nav-toggle" class="icon-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+        </button>
+      </div>
+
+      <a class="logo" href="index.html" aria-label="Butter and Bloom — home">
+        <span class="logo-text">
+          <span class="logo-script">Butter &amp; Bloom</span>
+          <span class="logo-sub">Artisan Bakery</span>
+        </span>
+        <svg class="logo-mark" viewBox="0 0 64 40" width="30" height="19" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 30 C6 16 18 7 32 7 C46 7 58 16 58 30 C58 34 53.5 35.5 50.5 32.5 C46 27.5 40 25 32 25 C24 25 18 27.5 13.5 32.5 C10.5 35.5 6 34 6 30 Z"/><path d="M22 10.5 L26 24" opacity=".55"/><path d="M32 8 L32 24" opacity=".55"/><path d="M42 10.5 L38 24" opacity=".55"/></svg>
+      </a>
+
+      <div class="header-side header-side-right">
+        <button id="search-toggle" class="icon-btn" aria-label="Search" aria-expanded="false" aria-controls="search-overlay">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+        </button>
+        <a href="wishlist.html" class="icon-btn" aria-label="Wishlist">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5 C7 16.5 3.5 13.3 3.5 9.6 C3.5 7 5.6 5 8.1 5 C9.7 5 11.2 5.8 12 7.1 C12.8 5.8 14.3 5 15.9 5 C18.4 5 20.5 7 20.5 9.6 C20.5 13.3 17 16.5 12 20.5 Z"/></svg>
+          <span id="wishlist-badge" class="badge-count" hidden>0</span>
+        </a>
+        <a href="cart.html" class="icon-btn" aria-label="Shopping cart">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7 H20 L18.5 17 A2 2 0 0 1 16.5 18.6 H7.5 A2 2 0 0 1 5.5 17 Z"/><path d="M8.5 10 V6.5 A3.5 3.5 0 0 1 15.5 6.5 V10"/></svg>
+          <span id="cart-badge" class="badge-count" hidden>0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-in navigation drawer -->
+  <div id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <span class="logo-script">Butter &amp; Bloom</span>
+      <button id="drawer-close" class="icon-btn" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+      </button>
+    </div>
+    <nav class="drawer-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop All</a>
+      <a href="collections.html">Collections</a>
+      <a href="custom-cake.html">Custom Cakes</a>
+      <a href="reservations.html">Reservations</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="drawer-foot">
+      <p class="drawer-hours" id="drawer-hours"></p>
+      <div class="social-links" id="drawer-socials"></div>
+    </div>
+  </div>
+  <div id="drawer-backdrop" class="drawer-backdrop" hidden></div>
+
+  <!-- Search overlay -->
+  <div id="search-overlay" class="search-overlay" aria-hidden="true">
+    <div class="container search-panel">
+      <form id="search-form" action="shop.html" method="get" role="search">
+        <input type="search" id="search-input" name="search" placeholder="Search croissants, cakes, macarons..." aria-label="Search products" autocomplete="off">
+        <button type="submit" class="btn btn-primary">Search</button>
+        <button type="button" id="search-close" class="icon-btn" aria-label="Close search">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+        </button>
+      </form>
+      <p class="search-hint">Try "croissant", "macarons" or "celebration cake"</p>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <!-- ================= PRODUCT ================= -->
+    <section class="section-tight" aria-label="Product details">
+      <div class="container">
+
+        <!-- Breadcrumb: Home / Shop All / Category / Product name (extended by product.js) -->
+        <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <span class="crumb-sep" aria-hidden="true">/</span>
+          <a href="shop.html">Shop All</a>
+        </nav>
+
+        <!--
+          Detail container. Starts as a skeleton; product.js fills it with the
+          gallery + buy panel. The needs-data class lets main.js swap in the
+          setup notice automatically when Supabase is not configured yet.
+        -->
+        <div id="product-detail" class="needs-data" aria-busy="true">
+          <div class="product-layout">
+            <div class="skeleton" style="aspect-ratio:1/1;border-radius:24px;"></div>
+            <div>
+              <div class="skeleton skeleton-line" style="width:30%;"></div>
+              <div class="skeleton skeleton-line" style="width:70%;height:26px;"></div>
+              <div class="skeleton skeleton-line" style="width:25%;"></div>
+              <div class="skeleton skeleton-line short"></div>
+              <div class="skeleton skeleton-line"></div>
+              <div class="skeleton skeleton-line short"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= RELATED PRODUCTS (unhidden by product.js) ================= -->
+    <section class="section-tight" id="related-section" hidden aria-labelledby="related-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title" id="related-title">You may also love</h2>
+          <p class="section-sub">More treats from the same bench</p>
+        </div>
+        <div id="related-grid" class="product-scroll"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <span class="logo-script">Butter &amp; Bloom</span>
+        <p>Handcrafted pastries, cakes and breads, baked fresh every morning with real butter, patience and love.</p>
+        <div class="social-links" id="footer-socials"></div>
+      </div>
+      <div class="footer-col">
+        <h3>Explore</h3>
+        <a href="shop.html">Shop All</a>
+        <a href="collections.html">Seasonal Collections</a>
+        <a href="custom-cake.html">Custom Cakes</a>
+        <a href="reservations.html">Reservations</a>
+        <a href="about.html">Our Story</a>
+      </div>
+      <div class="footer-col">
+        <h3>Opening Hours</h3>
+        <div id="footer-hours" class="footer-hours"></div>
+      </div>
+      <div class="footer-col">
+        <h3>Visit Us</h3>
+        <div id="footer-contact"></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>&copy; <span id="footer-year">2025</span> Butter &amp; Bloom. Demo bakery website — sample content for portfolio purposes.</p>
+        <a href="admin.html">Bakery Admin</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <script src="./supabase-js.js"></script>
+  <script src="./supabase.js"></script>
+  <script src="./main.js"></script>
+  <script src="./product.js"></script>
+</body>
+</html>

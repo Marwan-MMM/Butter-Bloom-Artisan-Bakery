@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Butter & Bloom favicon: croissant mark on a blush rounded square -->
+  <rect width="64" height="64" rx="14" fill="#F7E6E0"/>
+  <g transform="translate(4,12)" fill="none" stroke="#6B4632" stroke-width="3.4" stroke-linecap="round">
+    <path d="M6 30 C6 16 18 7 32 7 C46 7 58 16 58 30 C58 34 53.5 35.5 50.5 32.5 C46 27.5 40 25 32 25 C24 25 18 27.5 13.5 32.5 C10.5 35.5 6 34 6 30 Z"/>
+    <path d="M22 10.5 L26 24" opacity=".55"/>
+    <path d="M32 8 L32 24" opacity=".55"/>
+    <path d="M42 10.5 L38 24" opacity=".55"/>
+  </g>
+</svg>

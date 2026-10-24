@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservations — Butter &amp; Bloom Artisan Bakery</title>
+  <meta name="description" content="Reserve a tasting table, join a baking workshop or plan a private event at Butter & Bloom. Send a request and we confirm availability by phone.">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <meta property="og:title" content="Reservations — Butter & Bloom Artisan Bakery">
+  <meta property="og:description" content="Book a tasting, a workshop or the whole bakery for your event.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="./gallery-bakery-interior.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Seasonal announcement (content managed from the admin panel) -->
+  <div id="announcement-bar" class="announcement-bar" hidden></div>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="header-side">
+        <button id="nav-toggle" class="icon-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+        </button>
+      </div>
+
+      <a class="logo" href="index.html" aria-label="Butter and Bloom — home">
+        <span class="logo-text">
+          <span class="logo-script">Butter &amp; Bloom</span>
+          <span class="logo-sub">Artisan Bakery</span>
+        </span>
+        <svg class="logo-mark" viewBox="0 0 64 40" width="30" height="19" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 30 C6 16 18 7 32 7 C46 7 58 16 58 30 C58 34 53.5 35.5 50.5 32.5 C46 27.5 40 25 32 25 C24 25 18 27.5 13.5 32.5 C10.5 35.5 6 34 6 30 Z"/><path d="M22 10.5 L26 24" opacity=".55"/><path d="M32 8 L32 24" opacity=".55"/><path d="M42 10.5 L38 24" opacity=".55"/></svg>
+      </a>
+
+      <div class="header-side header-side-right">
+        <button id="search-toggle" class="icon-btn" aria-label="Search" aria-expanded="false" aria-controls="search-overlay">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+        </button>
+        <a href="wishlist.html" class="icon-btn" aria-label="Wishlist">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5 C7 16.5 3.5 13.3 3.5 9.6 C3.5 7 5.6 5 8.1 5 C9.7 5 11.2 5.8 12 7.1 C12.8 5.8 14.3 5 15.9 5 C18.4 5 20.5 7 20.5 9.6 C20.5 13.3 17 16.5 12 20.5 Z"/></svg>
+          <span id="wishlist-badge" class="badge-count" hidden>0</span>
+        </a>
+        <a href="cart.html" class="icon-btn" aria-label="Shopping cart">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7 H20 L18.5 17 A2 2 0 0 1 16.5 18.6 H7.5 A2 2 0 0 1 5.5 17 Z"/><path d="M8.5 10 V6.5 A3.5 3.5 0 0 1 15.5 6.5 V10"/></svg>
+          <span id="cart-badge" class="badge-count" hidden>0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-in navigation drawer -->
+  <div id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <span class="logo-script">Butter &amp; Bloom</span>
+      <button id="drawer-close" class="icon-btn" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+      </button>
+    </div>
+    <nav class="drawer-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop All</a>
+      <a href="collections.html">Collections</a>
+      <a href="custom-cake.html">Custom Cakes</a>
+      <a href="reservations.html">Reservations</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="drawer-foot">
+      <p class="drawer-hours" id="drawer-hours"></p>
+      <div class="social-links" id="drawer-socials"></div>
+    </div>
+  </div>
+  <div id="drawer-backdrop" class="drawer-backdrop" hidden></div>
+
+  <!-- Search overlay -->
+  <div id="search-overlay" class="search-overlay" aria-hidden="true">
+    <div class="container search-panel">
+      <form id="search-form" action="shop.html" method="get" role="search">
+        <input type="search" id="search-input" name="search" placeholder="Search croissants, cakes, macarons..." aria-label="Search products" autocomplete="off">
+        <button type="submit" class="btn btn-primary">Search</button>
+        <button type="button" id="search-close" class="icon-btn" aria-label="Close search">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+        </button>
+      </form>
+      <p class="search-hint">Try "croissant", "macarons" or "celebration cake"</p>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <!-- ================= PAGE HEAD ================= -->
+    <section class="page-head">
+      <div class="container">
+        <span class="eyebrow">Reservations</span>
+        <h1 class="section-title">Reserve a Moment</h1>
+        <p>Tasting tables for wedding couples, hands-on baking workshops and private events in the warmest room in town — tell us what you are celebrating and we will make room for you.</p>
+      </div>
+    </section>
+
+    <!-- ================= RESERVATION LAYOUT ================= -->
+    <section class="section" id="reservation-section" aria-labelledby="reservation-title">
+      <div class="container">
+        <h2 class="section-title" id="reservation-title" style="margin-bottom: 28px;">Plan your visit</h2>
+
+        <div class="simple-layout">
+          <!-- LEFT: info cards (hours + reassurance + human contact) -->
+          <div>
+            <div class="info-card">
+              <h3>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5 V12 L15 14"/></svg>
+                Opening hours
+              </h3>
+              <div class="hours-list" id="reservation-hours">
+                <p class="text-muted">Hours appear here once the bakery settings are loaded.</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <h3>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 11 V16"/><path d="M12 8 V8.2"/></svg>
+                Good to know
+              </h3>
+              <p>Every reservation is a request until we confirm it by phone — that usually takes less than a day. Planning a wedding? We recommend booking your tasting at least six weeks ahead so our pastry team can craft the perfect menu with you.</p>
+            </div>
+
+            <div class="info-card">
+              <h3>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 4.5 H9 L10.5 9 L8 10.5 C9 12.8 11.2 15 13.5 16 L15 13.5 L19.5 15 V19 C19.5 19.8 18.8 20.5 18 20.5 C10.5 20 3.5 13 3.5 5.5 C3.5 4.9 4.2 4.5 5 4.5 Z"/></svg>
+                Prefer to talk?
+              </h3>
+              <div id="reservation-contact">
+                <p class="text-muted">Phone and email appear here once the bakery settings are loaded.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: the request form (or the setup notice) -->
+          <div>
+            <!-- Filled with BB.setupNoticeHtml() by main.js when Supabase is not configured -->
+            <div id="reservation-setup-slot" class="needs-data" hidden></div>
+
+            <div class="form-panel" id="reservation-form-panel">
+              <form id="reservation-form" novalidate>
+                <div class="form-field">
+                  <label for="reservation-name">Your name <span aria-hidden="true">*</span></label>
+                  <input type="text" id="reservation-name" name="name" required aria-required="true" autocomplete="name">
+                  <p class="field-error" id="reservation-name-error" role="alert" hidden>Please tell us your name.</p>
+                </div>
+
+                <div class="form-grid">
+                  <div class="form-field">
+                    <label for="reservation-phone">Phone <span aria-hidden="true">*</span></label>
+                    <input type="tel" id="reservation-phone" name="phone" required aria-required="true" autocomplete="tel">
+                    <p class="field-error" id="reservation-phone-error" role="alert" hidden>We need a phone number to confirm your reservation.</p>
+                  </div>
+
+                  <div class="form-field">
+                    <label for="reservation-email">Email <span class="optional">(optional)</span></label>
+                    <input type="email" id="reservation-email" name="email" autocomplete="email">
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <span class="form-field-label" id="reservation-type-label" style="display:block; font-weight:700; font-size:0.9rem; color:var(--cocoa); margin-bottom:7px;">What are you reserving?</span>
+                  <div class="radio-cards" id="reservation-type" role="radiogroup" aria-labelledby="reservation-type-label">
+                    <label class="radio-card is-active">
+                      <input type="radio" name="reservation-type" value="tasting" checked>
+                      <span class="radio-title">Tasting table</span>
+                      <span class="radio-desc">Sit down with our pastry team and taste your shortlist</span>
+                    </label>
+                    <label class="radio-card">
+                      <input type="radio" name="reservation-type" value="workshop">
+                      <span class="radio-title">Baking workshop</span>
+                      <span class="radio-desc">A hands-on class in our kitchen, aprons included</span>
+                    </label>
+                    <label class="radio-card">
+                      <input type="radio" name="reservation-type" value="event">
+                      <span class="radio-title">Private event</span>
+                      <span class="radio-desc">Birthdays, showers and celebrations with the bakery to yourself</span>
+                    </label>
+                    <label class="radio-card">
+                      <input type="radio" name="reservation-type" value="table">
+                      <span class="radio-title">Regular table</span>
+                      <span class="radio-desc">Coffee and pastries, no fuss — we will save you a spot</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-grid">
+                  <div class="form-field">
+                    <label for="reservation-party">Party size</label>
+                    <input type="number" id="reservation-party" name="party_size" min="1" max="40" step="1" value="2" inputmode="numeric">
+                    <p class="field-hint">Between 1 and 40 guests.</p>
+                  </div>
+
+                  <div class="form-field">
+                    <label for="reservation-date">Requested date <span aria-hidden="true">*</span></label>
+                    <input type="date" id="reservation-date" name="requested_date" required aria-required="true">
+                    <p class="field-error" id="reservation-date-error" role="alert" hidden>Please pick a date that is today or later.</p>
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <label for="reservation-time">Preferred time</label>
+                  <select id="reservation-time" name="requested_time">
+                    <option value="Flexible" selected>Flexible</option>
+                    <option value="10:00">10:00</option>
+                    <option value="11:00">11:00</option>
+                    <option value="12:00">12:00</option>
+                    <option value="13:00">13:00</option>
+                    <option value="14:00">14:00</option>
+                    <option value="15:00">15:00</option>
+                    <option value="16:00">16:00</option>
+                    <option value="17:00">17:00</option>
+                    <option value="18:00">18:00</option>
+                    <option value="19:00">19:00</option>
+                  </select>
+                </div>
+
+                <div class="form-field">
+                  <label for="reservation-notes">Notes <span class="optional">(optional)</span></label>
+                  <textarea id="reservation-notes" name="notes" maxlength="500" rows="4" placeholder="Occasion, dietary needs, a favourite cake..."></textarea>
+                </div>
+
+                <button type="submit" id="reservation-submit" class="btn btn-primary btn-block">Send Reservation Request</button>
+                <p class="field-hint text-center" style="margin-top: 10px;">We confirm availability by phone shortly.</p>
+
+                <!-- Inline error shown here when submission fails -->
+                <div id="reservation-submit-error" hidden style="margin-top: 14px;"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <span class="logo-script">Butter &amp; Bloom</span>
+        <p>Handcrafted pastries, cakes and breads, baked fresh every morning with real butter, patience and love.</p>
+        <div class="social-links" id="footer-socials"></div>
+      </div>
+      <div class="footer-col">
+        <h3>Explore</h3>
+        <a href="shop.html">Shop All</a>
+        <a href="collections.html">Seasonal Collections</a>
+        <a href="custom-cake.html">Custom Cakes</a>
+        <a href="reservations.html">Reservations</a>
+        <a href="about.html">Our Story</a>
+      </div>
+      <div class="footer-col">
+        <h3>Opening Hours</h3>
+        <div id="footer-hours" class="footer-hours"></div>
+      </div>
+      <div class="footer-col">
+        <h3>Visit Us</h3>
+        <div id="footer-contact"></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>&copy; <span id="footer-year">2025</span> Butter &amp; Bloom. Demo bakery website — sample content for portfolio purposes.</p>
+        <a href="admin.html">Bakery Admin</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <script src="./supabase-js.js"></script>
+  <script src="./supabase.js"></script>
+  <script src="./main.js"></script>
+  <script src="./reservations.js"></script>
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Butter &amp; Bloom — Artisan Bakery | Freshly Baked Every Day</title>
+  <meta name="description" content="Butter & Bloom is a premium artisan bakery. Handcrafted pastries, celebration cakes, macarons and breads made with real butter and the finest ingredients. Order online for pickup or delivery.">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <meta property="og:title" content="Butter & Bloom — Artisan Bakery">
+  <meta property="og:description" content="Handcrafted pastries, cakes and breads, baked fresh every morning.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="./hero-croissants.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Seasonal announcement (content managed from the admin panel) -->
+  <div id="announcement-bar" class="announcement-bar" hidden></div>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="header-side">
+        <button id="nav-toggle" class="icon-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+        </button>
+      </div>
+
+      <a class="logo" href="index.html" aria-label="Butter and Bloom — home">
+        <span class="logo-text">
+          <span class="logo-script">Butter &amp; Bloom</span>
+          <span class="logo-sub">Artisan Bakery</span>
+        </span>
+        <svg class="logo-mark" viewBox="0 0 64 40" width="30" height="19" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 30 C6 16 18 7 32 7 C46 7 58 16 58 30 C58 34 53.5 35.5 50.5 32.5 C46 27.5 40 25 32 25 C24 25 18 27.5 13.5 32.5 C10.5 35.5 6 34 6 30 Z"/><path d="M22 10.5 L26 24" opacity=".55"/><path d="M32 8 L32 24" opacity=".55"/><path d="M42 10.5 L38 24" opacity=".55"/></svg>
+      </a>
+
+      <div class="header-side header-side-right">
+        <button id="search-toggle" class="icon-btn" aria-label="Search" aria-expanded="false" aria-controls="search-overlay">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+        </button>
+        <a href="wishlist.html" class="icon-btn" aria-label="Wishlist">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5 C7 16.5 3.5 13.3 3.5 9.6 C3.5 7 5.6 5 8.1 5 C9.7 5 11.2 5.8 12 7.1 C12.8 5.8 14.3 5 15.9 5 C18.4 5 20.5 7 20.5 9.6 C20.5 13.3 17 16.5 12 20.5 Z"/></svg>
+          <span id="wishlist-badge" class="badge-count" hidden>0</span>
+        </a>
+        <a href="cart.html" class="icon-btn" aria-label="Shopping cart">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7 H20 L18.5 17 A2 2 0 0 1 16.5 18.6 H7.5 A2 2 0 0 1 5.5 17 Z"/><path d="M8.5 10 V6.5 A3.5 3.5 0 0 1 15.5 6.5 V10"/></svg>
+          <span id="cart-badge" class="badge-count" hidden>0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Slide-in navigation drawer -->
+  <div id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <span class="logo-script">Butter &amp; Bloom</span>
+      <button id="drawer-close" class="icon-btn" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+      </button>
+    </div>
+    <nav class="drawer-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop All</a>
+      <a href="collections.html">Collections</a>
+      <a href="custom-cake.html">Custom Cakes</a>
+      <a href="reservations.html">Reservations</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="drawer-foot">
+      <p class="drawer-hours" id="drawer-hours"></p>
+      <div class="social-links" id="drawer-socials"></div>
+    </div>
+  </div>
+  <div id="drawer-backdrop" class="drawer-backdrop" hidden></div>
+
+  <!-- Search overlay -->
+  <div id="search-overlay" class="search-overlay" aria-hidden="true">
+    <div class="container search-panel">
+      <form id="search-form" action="shop.html" method="get" role="search">
+        <input type="search" id="search-input" name="search" placeholder="Search croissants, cakes, macarons..." aria-label="Search products" autocomplete="off">
+        <button type="submit" class="btn btn-primary">Search</button>
+        <button type="button" id="search-close" class="icon-btn" aria-label="Close search">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+        </button>
+      </form>
+      <p class="search-hint">Try "croissant", "macarons" or "celebration cake"</p>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <!-- ================= HERO ================= -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <span class="eyebrow">Fresh from our ovens</span>
+          <h1 class="hero-title" id="hero-title">Freshly baked,<br>every day</h1>
+          <p class="hero-sub" id="hero-subtitle">Delicious handcrafted pastries, cakes and breads made with the finest ingredients — real butter, slow proofing and a lot of love.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="shop.html">Order Now</a>
+            <a class="btn btn-outline" href="custom-cake.html">Design a Custom Cake</a>
+          </div>
+          <p class="hero-note">Pickup in store or local delivery — while batches last.</p>
+        </div>
+        <div class="hero-media">
+          <img class="hero-img" id="hero-image" src="./hero-croissants.jpg" alt="Golden butter croissants dusted with powdered sugar beside a cappuccino and a bowl of fresh strawberries" fetchpriority="high">
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FEATURED DELIGHTS (categories) ================= -->
+    <section class="section-tight" aria-labelledby="delights-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title" id="delights-title">Featured Delights</h2>
+          <p class="section-sub">Our most popular treats</p>
+        </div>
+        <div id="category-track" class="category-track needs-data" aria-label="Product categories">
+          <div class="skeleton-grid" style="grid-auto-flow:column;grid-auto-columns:150px;">
+            <div class="skeleton skeleton-img" style="aspect-ratio:1;border-radius:22px;"></div>
+            <div class="skeleton skeleton-img" style="aspect-ratio:1;border-radius:22px;"></div>
+            <div class="skeleton skeleton-img" style="aspect-ratio:1;border-radius:22px;"></div>
+            <div class="skeleton skeleton-img" style="aspect-ratio:1;border-radius:22px;"></div>
+            <div class="skeleton skeleton-img" style="aspect-ratio:1;border-radius:22px;"></div>
+          </div>
+        </div>
+        <div class="text-center" style="margin-top:10px;">
+          <a class="btn btn-primary" href="shop.html">View All Products</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BEST SELLERS ================= -->
+    <section class="section" aria-labelledby="best-title">
+      <div class="container">
+        <div class="section-head-row">
+          <div class="section-head">
+            <span class="eyebrow">Loved by everyone</span>
+            <h2 class="section-title" id="best-title">Best Sellers</h2>
+            <p class="section-sub">The treats our regulars keep coming back for</p>
+          </div>
+          <a class="link-more" href="shop.html?sort=newest">Shop all treats</a>
+        </div>
+        <div id="best-sellers-grid" class="product-grid needs-data">
+          <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line short"></div></div>
+          <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line short"></div></div>
+          <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line short"></div></div>
+          <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line short"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CUSTOM CAKE PROMO ================= -->
+    <section class="section-tight" aria-labelledby="promo-title">
+      <div class="container">
+        <div class="promo-panel">
+          <div class="promo-media">
+            <img src="./custom-cake-hero.jpg" alt="Baker piping pastel buttercream flowers onto an elegant white celebration cake" loading="lazy">
+          </div>
+          <div class="promo-copy">
+            <span class="eyebrow">Custom Orders</span>
+            <p class="script-accent" id="promo-title">A cake as unique as your celebration</p>
+            <p>Weddings, birthdays, baby showers or "just because" — our bakers design and hand-decorate cakes around your story. Choose flavors, fillings, frosting colors and decoration style, then we confirm every detail with you personally.</p>
+            <div class="promo-actions">
+              <a class="btn btn-primary" href="custom-cake.html">Build Your Cake</a>
+              <a class="btn btn-light" href="reservations.html">Book a Tasting</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= NEW ARRIVALS ================= -->
+    <section class="section" aria-labelledby="new-title">
+      <div class="container">
+        <div class="section-head-row">
+          <div class="section-head">
+            <span class="eyebrow">Just out of the oven</span>
+            <h2 class="section-title" id="new-title">New Arrivals</h2>
+            <p class="section-sub">Fresh ideas from our pastry bench</p>
+          </div>
+          <a class="link-more" href="shop.html?sort=newest">See what is new</a>
+        </div>
+        <div id="new-arrivals-grid" class="product-grid needs-data">
+          <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line short"></div></div>
+          <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line short"></div></div>
+          <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line short"></div></div>
+          <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line short"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SEASONAL COLLECTIONS ================= -->
+    <section class="section" aria-labelledby="collections-title">
+      <div class="container">
+        <div class="section-head center">
+          <span class="eyebrow">For every occasion</span>
+          <h2 class="section-title" id="collections-title">Seasonal Collections</h2>
+          <p class="section-sub">Curated treats for the moments that matter</p>
+        </div>
+        <div id="collections-grid" class="collections-grid needs-data">
+          <div class="skeleton" style="aspect-ratio:4/3.4;border-radius:22px;"></div>
+          <div class="skeleton" style="aspect-ratio:4/3.4;border-radius:22px;"></div>
+          <div class="skeleton" style="aspect-ratio:4/3.4;border-radius:22px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= OUR STORY ================= -->
+    <section class="section" aria-labelledby="story-title">
+      <div class="container">
+        <div class="story-split">
+          <div class="story-media">
+            <img src="./about-ingredients.jpg" alt="Premium baking ingredients: butter, flour, eggs, vanilla beans and fresh berries on marble" loading="lazy">
+          </div>
+          <div class="story-copy">
+            <span class="eyebrow">Our Story</span>
+            <h2 class="section-title" id="story-title">Baked with butter,<br>blooming with love</h2>
+            <p>Butter &amp; Bloom began in a tiny kitchen with one belief: a great bake needs only real ingredients, patience and care. Every morning our bakers fold, laminate and pipe by hand — never shortcuts, never mixes.</p>
+            <div class="value-chips">
+              <span class="value-chip">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3 L14.5 9 L21 9.5 L16 13.5 L18 20 L12 16.5 L6 20 L8 13.5 L3 9.5 L9.5 9 Z"/></svg>
+                Real butter only
+              </span>
+              <span class="value-chip">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5 V12 L15 14"/></svg>
+                Baked fresh daily
+              </span>
+              <span class="value-chip">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5 C7 16.5 3.5 13.3 3.5 9.6 C3.5 7 5.6 5 8.1 5 C9.7 5 11.2 5.8 12 7.1 C12.8 5.8 14.3 5 15.9 5 C18.4 5 20.5 7 20.5 9.6 C20.5 13.3 17 16.5 12 20.5 Z"/></svg>
+                Small batches
+              </span>
+            </div>
+            <a class="btn btn-outline" href="about.html">Read our story</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= GALLERY ================= -->
+    <section class="section-tight" aria-labelledby="gallery-title">
+      <div class="container">
+        <div class="section-head center">
+          <h2 class="section-title" id="gallery-title">From Our Bakery</h2>
+          <p class="section-sub">A little peek behind the counter</p>
+        </div>
+        <div class="gallery-grid">
+          <img class="gallery-wide" src="./gallery-bakery-interior.jpg" alt="Cozy artisan bakery interior with wooden counter and pastry display case" loading="lazy">
+          <img src="./gallery-baker-hands.jpg" alt="Baker hands kneading soft dough on a flour-dusted wooden surface" loading="lazy">
+          <img src="./gallery-display-counter.jpg" alt="Bakery display counter filled with colorful pastries and cakes" loading="lazy">
+          <img src="./gallery-cake-decorating.jpg" alt="Close up of pastel buttercream flowers being piped onto a cake" loading="lazy">
+          <img src="./gallery-coffee-pastry.jpg" alt="Cappuccino with latte art beside a fresh croissant on a cafe table" loading="lazy">
+          <img src="./gallery-dough-prep.jpg" alt="Laminated croissant dough being rolled out with a wooden rolling pin" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TESTIMONIALS (demo content) ================= -->
+    <section class="section" aria-labelledby="reviews-title">
+      <div class="container">
+        <div class="section-head center">
+          <span class="eyebrow">Kind words</span>
+          <h2 class="section-title" id="reviews-title">What Our Guests Say</h2>
+        </div>
+        <div class="testimonials-grid">
+          <figure class="testimonial-card">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote class="testimonial-quote">"The almond croissants are the closest thing to Paris I have found in this city. Flaky, buttery, gone in seconds."</blockquote>
+            <figcaption>
+              <div class="testimonial-author">Amelia R.</div>
+              <div class="sample-tag">Sample testimonial — demo content</div>
+            </figcaption>
+          </figure>
+          <figure class="testimonial-card">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote class="testimonial-quote">"They made my daughter's birthday cake exactly like the sketch I sent — and it tasted even better than it looked."</blockquote>
+            <figcaption>
+              <div class="testimonial-author">Marcus T.</div>
+              <div class="sample-tag">Sample testimonial — demo content</div>
+            </figcaption>
+          </figure>
+          <figure class="testimonial-card">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote class="testimonial-quote">"We ordered the wedding collection for our reception and guests are still talking about the rose macarons."</blockquote>
+            <figcaption>
+              <div class="testimonial-author">Sofia &amp; Daniel</div>
+              <div class="sample-tag">Sample testimonial — demo content</div>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VISIT US ================= -->
+    <section class="section-tight" aria-labelledby="visit-title" style="padding-bottom: clamp(40px, 7vw, 84px);">
+      <div class="container">
+        <div class="section-head center">
+          <span class="eyebrow">Come say hello</span>
+          <h2 class="section-title" id="visit-title">Visit the Bakery</h2>
+        </div>
+        <div class="visit-grid">
+          <div class="visit-card">
+            <h3>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5 V12 L15 14"/></svg>
+              Opening Hours
+            </h3>
+            <div class="hours-list" id="visit-hours"></div>
+          </div>
+          <div class="visit-card">
+            <h3>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 21 C7 16 4 12.5 4 9.3 A8 8 0 0 1 20 9.3 C20 12.5 17 16 12 21 Z"/><circle cx="12" cy="9.5" r="2.6"/></svg>
+              Find Us
+            </h3>
+            <div id="visit-address">
+              <p class="text-muted">Our address appears here once the bakery settings are loaded.</p>
+            </div>
+          </div>
+          <div class="visit-card">
+            <h3>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 4.5 H9 L10.5 9 L8 10.5 C9 12.8 11.2 15 13.5 16 L15 13.5 L19.5 15 V19 C19.5 19.8 18.8 20.5 18 20.5 C10.5 20 3.5 13 3.5 5.5 C3.5 4.9 4.2 4.5 5 4.5 Z"/></svg>
+              Order Ahead
+            </h3>
+            <p class="text-muted">Skip the queue — order online for pickup, or plan something special with our team.</p>
+            <a class="btn btn-blush" href="contact.html">Get in touch</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <span class="logo-script">Butter &amp; Bloom</span>
+        <p>Handcrafted pastries, cakes and breads, baked fresh every morning with real butter, patience and love.</p>
+        <div class="social-links" id="footer-socials"></div>
+      </div>
+      <div class="footer-col">
+        <h3>Explore</h3>
+        <a href="shop.html">Shop All</a>
+        <a href="collections.html">Seasonal Collections</a>
+        <a href="custom-cake.html">Custom Cakes</a>
+        <a href="reservations.html">Reservations</a>
+        <a href="about.html">Our Story</a>
+      </div>
+      <div class="footer-col">
+        <h3>Opening Hours</h3>
+        <div id="footer-hours" class="footer-hours"></div>
+      </div>
+      <div class="footer-col">
+        <h3>Visit Us</h3>
+        <div id="footer-contact"></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>&copy; <span id="footer-year">2025</span> Butter &amp; Bloom. Demo bakery website — sample content for portfolio purposes.</p>
+        <a href="admin.html">Bakery Admin</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <script src="./supabase-js.js"></script>
+  <script src="./supabase.js"></script>
+  <script src="./main.js"></script>
+  <script src="./home.js"></script>
+</body>
+</html>
